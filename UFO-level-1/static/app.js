@@ -1,18 +1,23 @@
 // use fetch API to get data from json file, then populate table
 fetch('../../data.json')
     .then(res => res.json())
-    .then(data => populateTable(data))
+    .then(data => makeTable(data))
     .catch(err => console.error(err));
 
 
-function populateTable(data) {
-    const tbody = document.getElementById('sightings');
+function makeTable(data) {
+    const tbody = document.getElementById('tbody');
     const trows = data.map(makeRow);
     trows.forEach(trow => tbody.append(trow));
+    document.querySelectorAll('th').forEach(th => th.style.color = 'white')
 }
 
 function makeRow(sighting, index) {
     const tr = document.createElement('tr');
+    // striping
+    if (index % 2 == 0) {
+        tr.classList.add('has-background-grey')
+    }
     // index the rows
     const th = document.createElement('th');
     th.innerHTML = index + 1;
@@ -29,6 +34,10 @@ function makeRow(sighting, index) {
             text = text.split(' ')
                 .map(word => word.charAt(0).toUpperCase() + word.slice(1))
                 .join(' ');
+        }
+        // set max width for comments column
+        if (column = 'comments') {
+            td.style.maxWidth = '300px';
         }
         // add the text and append the cell
         td.innerHTML = text;

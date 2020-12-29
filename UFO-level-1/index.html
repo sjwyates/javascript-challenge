@@ -6,37 +6,60 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
 </head>
 
-<body>
-    <table class="table">
-        <thead>
-            <tr>
-                <th><abbr title="Sighting Number">#</abbr></th>
-                <th>Date</th>
-                <th>City</th>
-                <th>State</th>
-                <th>Country</th>
-                <th>Shape</th>
-                <th>Duration</th>
-                <th>Comments</th>
-            </tr>
-        </thead>
-        <tfoot>
-            <tr>
-                <th><abbr title="Sighting Number">#</abbr></th>
-                <th>Date</th>
-                <th>City</th>
-                <th>State</th>
-                <th>Country</th>
-                <th>Shape</th>
-                <th>Duration</th>
-                <th>Comments</th>
-            </tr>
-        </tfoot>
-        <tbody id="sightings">
-        </tbody>
-    </table>
+<body class="has-background-dark">
+    
+    <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item has-text-weight-semibold is-size-4 p-5" href="/">
+                <i class="fas fa-hand-spock"></i>
+            </a>
+        </div>
+    </nav>
+
+    <section class="hero is-medium is-black is-bold" style="background: black url('../images/ufo_bw.jpg') center;">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title is-1">
+                    UFO Sightings
+                </h1>
+                <h2 class="subtitle is-4">
+                    The truth is out there
+                </h2>
+            </div>
+        </div>
+    </section>
+
+    <section id="content">
+        <div class="container">
+            <div class="table-container my-6">
+                <table class="table is-bordered is-narrow has-background-grey-dark has-text-white">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Date</th>
+                            <th>City</th>
+                            <th>State</th>
+                            <th>Country</th>
+                            <th>Shape</th>
+                            <th>Duration</th>
+                            <th>Comments</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody"></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer has-background-dark">
+        <div class="has-text-centered">
+            <p class="has-text-light">Built by Stuart Yates</p>
+            <a class="has-text-info" href="https://github.com/sjwyates/javascript-challenge" title="project page">See on Github</a>
+        </div>
+    </footer>
 
     <script src="static/app.js"></script>
 </body>
