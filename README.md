@@ -21,23 +21,43 @@ First, `res => res.json()` extracts the JSON data and returns it as a POJO, then
 The next callback in the promise pipeline is `makeTable`, which runs a `forEach` loop that calls `makeRow` on each UFO sighting. That function creates a `<tr>` element, then runs a `forEach` loop on an array of all the column keys:
 
 ```
-["datetime", "city", "state", "country", "shape", durationMinutes", "comments"].forEach()
+["datetime", "city", "state", "country", "shape", durationMinutes", "comments"].forEach(...)
 ```
 
 Each iteration creates a `<td>` element, sets its `innerHTML` to the value in the sighting object, and appends it to the `<tr>`. Once it's looped through all the columns, it returns the `<tr>`.
 
 Finally, `makeTable` appends each returned `<tr>` to the `<tbody>` element, then returns the data so it can be passed to the final callback in the pipeline.
 
-## Part 2 - Listen, Handle, Filter, Rebuild
+### Populating datepicker initial values
+
+The final 2 callbacks use the data to set values and options for the filter form.
+
+The first is `setStartEndDates`, which sets the initial values of the start and end date inputs to the earliest and latest dates in the dataset, respectively. I put this in because the dataset only covers the first 2 weeks of 2010, and in terms of user experience, having to go change the year and month in the datepicker every time is tedious.
+
+In order to do this, it takes in the data, then maps it to an array of sighting dates as JavaScript `Date` objects:
+
+```
+const dates = data.map((sighting) => new Date(sighting.datetime));
+```
+
+It then finds the min and max dates and converts them into an ISO string, then slices them to just get the date part:
+
+```
+const minDate = new Date(Math.min.apply(null, dates))
+    .toISOString()
+    .slice(0, 10);
+```
+
+That spits out the date string formatted as `'YYYY-MM-DD'`, which is the only format HTML date inputs will accept as a value. It then sets the values of the start and end date inputs to `minDate` and `maxDate`, respectively, and once again returns the data.
 
 ### Populating the dropdown menus
 
-Picking up where we left off in part 1, the last callback is `makeDropdowns`, which populates the dropdowns in the filter form for the 4 categories (city, state, country, and shape).
+The final callback is `makeDropdowns`, which populates the dropdowns in the filter form for the 4 categories (city, state, country, and shape).
 
 First, it needs to find all the unique values in the dataset. It runs a `forEach` loop on an array of the 4 categories:
 
 ```
-["city", "state", "country", "shape"].forEach()
+["city", "state", "country", "shape"].forEach(...)
 ```
 
 Each iteration maps the dataset to get an array of all values for that category. To get unique values, it passes the array into the `Set` constructor, then uses the spread operator to convert the set back to an array:
@@ -49,6 +69,8 @@ Each iteration maps the dataset to get an array of all values for that category.
 It then passes each array of unique values into the `makeDropdown` function, along with the id of their target `<select>` element.
 
 That function gets the `<select>` element by ID, then runs a `forEach` loop that creates an `<option>` element for each choice, sets its `value` and `innerHTML`, and appends it to the `<select>` element.
+
+## Part 2 - Listen, Handle, Filter, Rebuild
 
 ### The filter form
 
@@ -103,3 +125,5 @@ while (tbody.firstChild) {
 Second, it calls `makeTable` and passes it whatever data was passed to it.
 
 ### Clearing the filters
+
+I also gave the user the option to clear all filters, which was fairly easy to implement. It loops over an array of IDs for all the `<select>` elements and sets their value to an empty string. Then to reset the date inputs, it calls `setStartEndDates` and passes it the original `jsonData` array. Finally, it calls `rebuildTable`, again passing it `jsonData`.

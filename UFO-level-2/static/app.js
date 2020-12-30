@@ -154,10 +154,10 @@ function applyFilters(e) {
 
 function clearFilters(e) {
   e.preventDefault();
-  setStartEndDates(jsonData);
   ["citySelect", "stateSelect", "countrySelect", "shapeSelect"].forEach(
     (id) => (document.getElementById(id).value = "")
   );
+  setStartEndDates(jsonData);
   rebuildTable(jsonData);
 }
 
