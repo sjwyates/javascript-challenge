@@ -103,16 +103,27 @@ function applyFilters(e) {
     e.preventDefault();
     let filteredData = [...jsonData];
     ['city', 'state', 'country', 'shape'].forEach(category => {
-        const select = document.getElementById(category + 'Select');
-        if (select.value) {
-            filteredData = filteredData.filter(sighting => sighting[category] == select.value);
+        const value = document.getElementById(category + 'Select').value;
+        if (value) {
+            filteredData = filteredData.filter(sighting => sighting[category] == value);
         }
     })
+    const startDate = document.getElementById('startDate').value;
+    if (startDate) {
+        filteredData = filteredData.filter(sighting => new Date(startDate) <= new Date(sighting.datetime))
+    }
+    const endDate = document.getElementById('endDate').value;
+    if (endDate) {
+        filteredData = filteredData.filter(sighting => new Date(endDate) >= new Date(sighting.datetime))
+    }
     rebuildTable(filteredData);
 }
 
 function clearFilters(e) {
     e.preventDefault();
+    document.getElementById('startDate').value = '2010-01-01';
+    document.getElementById('endDate').value = '2010-01-30';
+    ['citySelect', 'stateSelect', 'countrySelect', 'shapeSelect'].forEach(id => document.getElementById(id).value = '')
     rebuildTable(jsonData);
 }
 
