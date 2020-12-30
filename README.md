@@ -2,7 +2,9 @@
 
 ## Overview
 
-In this assignment, you're given some dummy data about UFO sightings from 2010. The assignment has 2 parts: first, use JavaScript to populate an HTML table from that data; and second, create a form with some filter options (date, city, UFO shape, etc) and implement event listeners/handlers to selectively rebuild the table.
+In this assignment, you're given some dummy data about UFO sightings from 2010. There are 2 main goals: first, use JavaScript to populate an HTML table from the data; and second, create a form with some filter options (date, city, UFO shape, etc) and implement event listeners/handlers to selectively rebuild the table.
+
+The final result looks something like this:
 
 ![ufo page screenshot](images/ufo-home.png)
 
