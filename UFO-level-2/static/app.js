@@ -124,13 +124,14 @@ function applyFilters(e) {
       );
     }
   });
-  filteredData = filteredData.filter(
-    (sighting) =>
-      new Date(document.getElementById("startDate").value) <=
-        new Date(sighting.datetime) &&
-      new Date(document.getElementById("endDate").value) >=
-        new Date(sighting.datetime)
-  );
+  const startDate = new Date(document.getElementById("startDate").value);
+  const endDate = new Date(document.getElementById("endDate").value);
+  // need to add a day because for whatever reason it's not inclusive of the end date:
+  endDate.setDate(endDate.getDate() + 1);
+  filteredData = filteredData.filter((sighting) => {
+    const sightingDate = new Date(sighting.datetime);
+    return sightingDate >= startDate && sightingDate <= endDate;
+  });
   rebuildTable(filteredData);
 }
 
