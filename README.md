@@ -52,7 +52,7 @@ That function gets the `<select>` element by ID, then runs a `forEach` loop that
 
 ### The filter form
 
-In addition to those 4 category dropdowns, the filter form contains 2 `<input>` elements of `type="date"` so the user can choose a start and end date. I didn't implement anything custom for this, I just left it up to the browser's native date picker.
+In addition to those 4 category dropdowns, the filter form contains 2 `<input>` elements of `type="date"` so the user can choose a start and end date. I didn't implement anything custom for this, I just left it up to the browser's native date picker. Because all the data is from January 2010, I set their initial values to `2010-01-01` and `2020-01-31`, respectively, so that when the user opens the date picker they won't have to navigate to
 
 At the bottom of the form, there are 2 buttons: the Apply button with `type="submit"`, and the Clear button with `type="reset"`.
 
@@ -71,4 +71,35 @@ The `applyFilters` handler isn't super elegant, but it works. First, it creates 
 
 Next, it loops over the 4 dropdown categories and checks to see if its `<select>` element has a value, and if it does, it filters `filteredData` to find matches, then reassigns it to the filtered array and moves on to the next category.
 
-For the date range, it takes the value from each date input
+For the date range, it takes the value from each date input and passes them into the `Date` constructor, then does the same for each sighting date inside the filter loop and returns a simple conditional:
+
+```
+filteredData = filteredData.filter((sighting) => {
+    const sightingDate = new Date(sighting.datetime);
+    return sightingDate >= startDate &&
+            sightingDate <= endDate;
+});
+```
+
+However, I noticed a slight bug where the returned data was not inclusive of the end date, even though I used `<=`, so I added a day to the end date:
+
+```
+endDate.setDate(endDate.getDate() + 1);
+```
+
+At this point, all the user's filters have been applied. The last line of `applyFilters` calls the `rebuildTable` function and passes it `filteredData`.
+
+### Rebuilding the table
+
+The `rebuildTable` function does 2 things: First, it loops through the table body using a `while` loop, which keeps removing its children (ie, the `<tr>` elements) until there are none left:
+
+```
+const tbody = document.getElementById("tbody");
+while (tbody.firstChild) {
+    tbody.removeChild(tbody.firstChild);
+}
+```
+
+Second, it calls `makeTable` and passes it whatever data was passed to it.
+
+### Clearing the filters

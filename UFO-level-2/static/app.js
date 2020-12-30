@@ -7,6 +7,7 @@ fetch("../../data.json")
   .then((res) => res.json())
   .then(cleanData)
   .then(makeTable)
+  .then(setStartEndDates)
   .then(makeDropdowns)
   .catch((err) => console.error(err));
 
@@ -84,6 +85,22 @@ function makeRow(sighting, index) {
 }
 
 // -------------------------------------
+// DATEPICKER INITIAL VALUES
+// -------------------------------------
+function setStartEndDates(data) {
+  const dates = data.map((sighting) => new Date(sighting.datetime));
+  const minDate = new Date(Math.min.apply(null, dates))
+    .toISOString()
+    .slice(0, 10);
+  const maxDate = new Date(Math.max.apply(null, dates))
+    .toISOString()
+    .slice(0, 10);
+  document.getElementById("startDate").value = minDate;
+  document.getElementById("endDate").value = maxDate;
+  return data;
+}
+
+// -------------------------------------
 // DROPDOWNS
 // -------------------------------------
 function makeDropdowns(data) {
@@ -137,8 +154,7 @@ function applyFilters(e) {
 
 function clearFilters(e) {
   e.preventDefault();
-  document.getElementById("startDate").value = "2010-01-01";
-  document.getElementById("endDate").value = "2010-01-30";
+  setStartEndDates(jsonData);
   ["citySelect", "stateSelect", "countrySelect", "shapeSelect"].forEach(
     (id) => (document.getElementById(id).value = "")
   );
