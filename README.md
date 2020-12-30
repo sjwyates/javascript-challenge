@@ -1,10 +1,10 @@
 # JavaScript Challenge
 
-![ufo page screenshot](images/ufo-home.png)
-
 ## Overview
 
 In this assignment, you're given some dummy data about UFO sightings from 2010. The first goal is to use JavaScript to populate an HTML table from that data, and the second goal is to create form fields and use the inputs to filter the data and rebuild the table.
+
+![ufo page screenshot](images/ufo-home.png)
 
 ## JavaScript
 
