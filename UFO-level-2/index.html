@@ -36,20 +36,26 @@
         <div class="container">
             <div class="columns">
 
-                <div class="column is-one-fifth">
-                    <form id="filterForm">
-                        <div class="field" id="dateRange">
-                            <label class="label has-text-white" for="startDate">Start</label>
-                            <div class="control">
-                                <input class="input" type="date" id="startDate" value="2010-01-01">
+                <div class="column is-one-quarter my-6">
+                    <form id="filterForm" class="m-4">
+                        <div class="box has-background-grey my-4 p-3">
+                            <h3 class="has-text-white">Filter by Date Range</h3>
+                            <div class="field p-2">
+                                <label class="label has-text-white" for="startDate">Start</label>
+                                <div class="control">
+                                    <input class="input" type="date" id="startDate" value="2010-01-01">
+                                </div>
                             </div>
-                            <label class="label has-text-white" for="endDate">End</label>
-                            <div class="control">
-                                <input class="input" type="date" id="endDate" value="2010-01-30">
+                            <div class="field p-2">
+                                <label class="label has-text-white" for="endDate">End</label>
+                                <div class="control">
+                                    <input class="input" type="date" id="endDate" value="2010-01-30">
+                                </div>
                             </div>
                         </div>
-                        <div>
-                            <div class="field">
+                        <div class="box has-background-grey my-4 p-3">
+                            <h3 class="has-text-white">Filter by Category</h3>
+                            <div class="field p-2">
                                 <div class="control">
                                     <div class="select">
                                         <select name="city" id="citySelect">
@@ -58,7 +64,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="field">
+                            <div class="field p-2">
                                 <div class="control">
                                     <div class="select">
                                         <select name="state" id="stateSelect">
@@ -67,7 +73,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="field">
+                            <div class="field p-2">
                                 <div class="control">
                                     <div class="select">
                                         <select name="country" id="countrySelect">
@@ -76,7 +82,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="field">
+                            <div class="field p-2">
                                 <div class="control">
                                     <div class="select">
                                         <select name="shape" id="shapeSelect">
@@ -86,18 +92,20 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="field is-grouped">
-                            <div class="control">
-                                <button id="applyFilters" class="button" type="submit">Apply</button>
-                            </div>
-                            <div class="control">
-                                <button id="clearFilters" class="button" type="reset">Clear</button>
+                        <div class="box has-background-grey my-4 p-3">
+                            <div class="field is-grouped p-2">
+                                <div class="control">
+                                    <button id="applyFilters" class="button" type="submit">Apply</button>
+                                </div>
+                                <div class="control">
+                                    <button id="clearFilters" class="button" type="reset">Clear</button>
+                                </div>
                             </div>
                         </div>
                     </form>
                 </div>
 
-                <div class="column is-four-fifths table-container my-6">
+                <div class="column is-three-quarters table-container my-6">
                     <table class="table is-bordered is-narrow has-background-grey-dark has-text-white">
                         <thead>
                             <tr>
