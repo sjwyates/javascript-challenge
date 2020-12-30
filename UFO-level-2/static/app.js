@@ -1,7 +1,9 @@
 // -------------------------------------
 // FETCH JSON DATA
 // -------------------------------------
-const data = fetch('../../data.json')
+let jsonData = [];
+
+fetch('../../data.json')
     .then(res => res.json())
     .then(cleanData)
     .then(makeTable)
@@ -15,7 +17,7 @@ function cleanData(data) {
         .map(word => word.charAt(0).toUpperCase() + word.slice(1))
         .join(' ');
     }
-    return data.map(sighting => {
+    jsonData = data.map(sighting => {
         let { datetime, city, state, country, shape, durationMinutes, comments } = sighting;
         return {
             datetime,
@@ -26,7 +28,8 @@ function cleanData(data) {
             durationMinutes,
             comments
         }
-    })
+    });
+    return jsonData;
 }
 
 // -------------------------------------
@@ -70,34 +73,53 @@ function makeRow(sighting, index) {
 // -------------------------------------
 function makeDropdowns(data) {
     // get all unique values
-    const cities = [...new Set(data.map(sighting => sighting.city))]
-    const states = [...new Set(data.map(sighting => sighting.state))]
-    const countries = [...new Set(data.map(sighting => sighting.country))]
-    const shapes = [...new Set(data.map(sighting => sighting.shape))]
+    ['city', 'state', 'country', 'shape'].forEach(category => {
+        const id = category + 'Select';
+        const choices = [...new Set(data.map(sighting => sighting[category]))]
+        makeDropdown(id, choices);
+    })
     return data;
 }
 
-function makeDropdown(name, options) {
-    const control = document.createElement('div');
-
+function makeDropdown(id, choices) {
+    const select = document.getElementById(id);
+    choices.forEach(choice => {
+        const option = document.createElement('option');
+        option.value = choice;
+        option.innerHTML = choice;
+        select.append(option)
+    })
 }
 
 // -------------------------------------
 // EVENT HANDLING
 // -------------------------------------
-document.getElementById('applyFilters').addEventListener(applyFilters);
-document.getElementById('clearFilters').addEventListener(clearFilters);
+const filterForm = document.getElementById('filterForm')
+filterForm.addEventListener('submit', applyFilters);
+filterForm.addEventListener('reset', clearFilters);
 
 
 function applyFilters(e) {
     e.preventDefault();
-    
+    let filteredData = [...jsonData];
+    ['city', 'state', 'country', 'shape'].forEach(category => {
+        const select = document.getElementById(category + 'Select');
+        if (select.value) {
+            filteredData = filteredData.filter(sighting => sighting[category] == select.value);
+        }
+    })
+    rebuildTable(filteredData);
 }
 
 function clearFilters(e) {
     e.preventDefault();
+    rebuildTable(jsonData);
 }
 
 function rebuildTable(data) {
-
+    const tbody = document.getElementById('tbody');
+    while (tbody.firstChild) {
+        tbody.removeChild(tbody.firstChild);
+    }
+    makeTable(data);
 }
