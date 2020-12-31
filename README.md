@@ -34,7 +34,7 @@ Fetch gets called as soon as the script loads. Once the promise is fulfilled, it
 
 The first custom callback in the pipeline is `cleanData`, which upper-cases the state and country codes and title-cases cities and shapes for presentational purposes.
 
-Upper-casing is easy, since JavaScript strings have a `toUpperCase` method. But unlike Python, there's built-in method to convert a string to title case, so `cleanData` contains a custom nested function:
+Upper-casing is easy, since JavaScript strings have a `toUpperCase` method. But unlike Python, there's no built-in method to convert a string to title case, so `cleanData` contains a custom nested function:
 
 ```
 function toTitleCase(str) {
