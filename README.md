@@ -196,4 +196,6 @@ The `clearFilters` function loops over an array of IDs for all the `<select>` el
 
 There are probably more than a few not-so-best practices in here, but one of the nice things about a small project like this is you're a little more free to experiment. And when you don't use any frameworks - especially the bigger ones like React or Vue - you don't have that layer of abstraction over what JavaScript is doing, which forces you to think more carefully to be economical.
 
-It's also nice to come back to JavaScript, the first language I really learned. People often don't appreciate how much there is to like about it,
+It's also nice to come back to JavaScript, the first language I really learned. People often don't appreciate how much there is to like about it, so I tried to showcase a few of my favorites. If you have any questions or suggestions, feel free to reach out.
+
+Cheers.
