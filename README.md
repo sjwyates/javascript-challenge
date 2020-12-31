@@ -133,7 +133,7 @@ It then passes each array of unique values into the `makeDropdown` function, alo
 
 That function gets the `<select>` element by ID, then runs a `forEach` loop that creates an `<option>` element for each choice, sets its `value` and `innerHTML`, and appends it to the `<select>` element.
 
-## Part 2 - Listen, Handle, Filter, Rebuild
+## Part 2 - Dispatch, Listen, Handle, Filter, Rebuild
 
 ### Event listening and handling
 
