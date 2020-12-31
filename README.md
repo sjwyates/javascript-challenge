@@ -139,15 +139,23 @@ That function gets the `<select>` element by ID, then runs a `forEach` loop that
 
 At the bottom of the form, there are 2 buttons:
 
-- Apply, with `type="submit"`
-- Clear, with `type="reset"`
+```
+<button type="submit">Apply</button>
+...
+<button type="reset">Clear</button>
+```
 
-The `type` attribute determines what type of event will be fired when the button is clicked. The event bubbles up to the parent form, which is where the event listeners are attached:
+Instead of attaching `click` handlers to the buttons themselves, I just gave them a `type` attribute to tell them what kind of event to dispatch. They don't care what those events do - instead, all the real logic is handled by their grandparent `<form>` element, where the event listeners are attached:
 
-- `submit` triggers the `applyFilters` handler
-- `reset` triggers the `clearFilters` handler
+```
+const filterForm = document.getElementById("filterForm");
+filterForm.addEventListener("submit", applyFilters);
+filterForm.addEventListener("reset", clearFilters);
+```
 
-Both handlers take in the event and call `preventDefault()` on it to stop the event from bubbling up any further, since if either reaches the top level of the DOM, it would trigger an unwanted page refresh.
+When a user clicks on a button, the event bubbles up to the `<form>` element, and when one of those listeners hears an event with the matching type, it fires its respective handler function.
+
+It's important to stop the event from bubbling up any further, because if it reaches the top level of the DOM, it triggers an unwanted page refresh. To do that, both handler functions take in the event as an argument and call its `preventDefault()` method to stop it dead in its tracks.
 
 ### Applying the filters
 
