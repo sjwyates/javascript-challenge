@@ -8,11 +8,9 @@ The final result looks something like this:
 
 ![ufo page screenshot](images/ufo-home.png)
 
-When it came to frameworks, I decided to go with [Vanilla JS](http://vanilla-js.com/), because it's simple, fast, and comes pre-loaded on all web browsers. It can handle DOM traversal and manipulation, plus AJAX, which is all I really needed.
-
 ## Part 1 - Creating the Table
 
-### HTML skeleton
+### HTML
 
 The actual `index.html` file has a navbar (for display purposes only), a hero (or jumbotron in Bootstrap lingo), and a footer. In between, there are 2 columns: The filter form and the table.
 
@@ -20,9 +18,13 @@ To start out with, the table only has a `<thead>` element filled out with column
 
 All the rows in the table body, the initial values for start and end date, and the options in the category dropdowns get populated using JavaScript.
 
-### Fetching and cleaning the data
+### JavaScript
 
 When `app.js` loads, the first thing it needs to do is get the data before it can start building DOM elements with.
+
+When it came to frameworks, I decided to go with [Vanilla JS](http://vanilla-js.com/), because it's simple, fast, and comes pre-loaded on all web browsers. It can handle DOM traversal and manipulation, plus AJAX, which is all I really needed.
+
+### Fetching and cleaning the data
 
 Instead of loading the dummy data from a JS file, I converted it into JSON to make it a little more realistic, then used the Fetch API to retrieve it. Once the promise is fulfilled, it gets passed through a pipeline of `then()` methods.
 
