@@ -22,13 +22,17 @@ All the rows in the table body, the initial values for start and end date, and t
 
 When `app.js` loads, the first thing it needs to do is get the data before it can start building DOM elements with.
 
-When it came to frameworks, I decided to go with [Vanilla JS](http://vanilla-js.com/), because it's simple, fast, and comes pre-loaded on all web browsers. It can handle DOM traversal and manipulation, plus AJAX, which is all I really needed.
+When it came to frameworks, I decided to go with [Vanilla JS](http://vanilla-js.com/), because it's simple, fast, and comes pre-loaded on all web browsers. It can handle DOM traversal and manipulation, plus AJAX, which is all I really needed. (Yes, I'm being tongue-in-cheek.)
 
-### Fetching and cleaning the data
+### Fetch API
 
-Instead of loading the dummy data from a JS file, I converted it into JSON to make it a little more realistic, then used the Fetch API to retrieve it. Once the promise is fulfilled, it gets passed through a pipeline of `then()` methods.
+Instead of loading the dummy data from a JS file, I converted it into JSON to make it a little more realistic, then used the Fetch API to retrieve it. It's a simple promise-based interface for making web requests, and it's native to ES6.
 
-First, `res => res.json()` extracts the JSON data and returns it as a POJO. Next up is `cleanData`, which upper-cases the state and country codes and title-cases cities and shapes.
+Fetch gets called as soon as the script loads. Once the promise is fulfilled, it gets passed through a pipeline of `then()` methods, starting with `res => res.json()` to extract the JSON data and returns it as an array of POJOs.
+
+### Cleaning the data
+
+The first custom callback in the pipeline is `cleanData`, which upper-cases the state and country codes and title-cases cities and shapes for presentational purposes.
 
 Upper-casing is easy, since JavaScript strings have a `toUpperCase` method. But unlike Python, there's built-in method to convert a string to title case, so `cleanData` contains a custom nested function:
 
